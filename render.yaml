@@ -1,0 +1,31 @@
+services:
+  # ... (your database service definition) ...
+  - type: psql
+    name: ananta-db
+    region: singapore 
+    plan: free
+
+  # ... (your web service definition) ...
+  - type: web
+    name: ananta-website
+    env: node
+    region: singapore
+    plan: free 
+    
+    buildCommand: "npm install"
+    startCommand: "npm start"
+
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ananta-db
+          property: connectionString
+          
+      # This is the crucial part. It tells Render to load all variables
+      # from your 'ananta-secrets' group into this service.
+      - fromGroup: ananta-secrets
+
+      # Explicitly tell Render that this service is running in production.
+      # This helps with cookie settings and other optimizations.
+      - key: NODE_ENV
+        value: production
