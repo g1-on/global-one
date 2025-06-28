@@ -1,0 +1,186 @@
+:root {
+    --chatbot-gold: #c4a65a;
+    --chatbot-dark: #1F2937;
+    --chatbot-light-dark: #374151;
+    --chatbot-text: #E5E7EB;
+}
+
+/* Toggle Button */
+#chatbot-toggle-button {
+    position: fixed;
+    bottom: 25px;
+    /* MODIFIED: Changed from 'right' to 'left' */
+    left: 25px; 
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728);
+    color: #111;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    transition: transform 0.3s ease;
+    /* ADDED: Styles for the new text icon */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+#chatbot-toggle-button:hover {
+    transform: scale(1.1);
+}
+/* REMOVED: The SVG is no longer needed inside the button */
+/* #chatbot-toggle-button svg { ... } */
+
+
+/* Chatbot Container */
+#chatbot-container {
+    position: fixed;
+    bottom: 100px;
+    /* MODIFIED: Changed from 'right' to 'left' */
+    left: 25px;
+    width: 350px;
+    max-width: 90vw;
+    height: 500px;
+    max-height: 70vh;
+    background-color: var(--chatbot-dark);
+    border: 1px solid var(--chatbot-gold);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    /* MODIFIED: Changed transform origin to bottom-left */
+    transform-origin: bottom left;
+}
+#chatbot-container.visible {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* ... (The rest of the CSS file remains exactly the same) ... */
+#chatbot-header {
+    background-color: var(--chatbot-light-dark);
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--chatbot-gold);
+}
+#chatbot-header h3 {
+    color: var(--chatbot-gold);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#chatbot-close-btn {
+    background: none;
+    border: none;
+    color: var(--chatbot-text);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+#chatbot-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.chat-message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 80%;
+    line-height: 1.5;
+    font-size: 0.9rem;
+    text-transform: none; /* Override body style */
+}
+.chat-message.bot {
+    background-color: var(--chatbot-light-dark);
+    color: var(--chatbot-text);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+.chat-message.user {
+    background-color: var(--chatbot-gold);
+    color: #111;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+.chat-message a {
+    color: #fbf5b7;
+    text-decoration: underline;
+}
+.chat-message.typing-indicator span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--chatbot-gold);
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+.chat-message.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.chat-message.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+}
+#chatbot-input-container {
+    padding: 10px;
+    border-top: 1px solid var(--chatbot-light-dark);
+}
+#chatbot-form {
+    display: flex;
+    gap: 10px;
+}
+#chatbot-input {
+    flex-grow: 1;
+    border: 1px solid #4b5563;
+    background-color: #374151;
+    color: #e5e7eb;
+    border-radius: 20px;
+    padding: 10px 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+#chatbot-input:focus {
+    border-color: var(--chatbot-gold);
+}
+#chatbot-send-btn {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--chatbot-gold);
+    color: var(--chatbot-dark);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+#chatbot-send-btn:hover {
+    background-color: #e6d396;
+}
+#chatbot-send-btn svg {
+    width: 20px;
+    height: 20px;
+}
+@media (max-width: 640px) {
+    #chatbot-toggle-button, #chatbot-container {
+        display: none;
+    }
+}

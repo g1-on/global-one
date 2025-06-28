@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global One Industries | Quality Building & Furnishing Materials</title>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+    <style>
+        /* --- GLOBAL STYLES --- */
+        :root {
+            --primary-color: #003366; /* Deep Blue */
+            --secondary-color: #E87722; /* Burnt Orange */
+            --light-gray: #f4f4f4;
+            --dark-gray: #333;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--light-gray);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #d46613;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #002244;
+            transform: translateY(-2px);
+        }
+
+
+        /* --- HEADER & NAVIGATION --- */
+        .main-header {
+            background: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .main-nav ul li {
+            margin-left: 25px;
+        }
+        
+        .main-nav ul li a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        
+        .main-nav ul li a:hover {
+            border-bottom-color: var(--secondary-color);
+        }
+        
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop') no-repeat center center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 31, 63, 0.7); /* Dark blue overlay */
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+        }
+
+        .hero .btn {
+            margin: 0 10px;
+        }
+
+        /* --- PRODUCTS OVERVIEW SECTION --- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .product-overview-card {
+            background: var(--white);
+            padding: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .product-overview-card i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .product-overview-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        /* --- WHY CHOOSE US --- */
+        .why-us-grid {
+             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .why-us-card {
+            text-align: center;
+        }
+        
+        .why-us-card h3 {
+            margin-top: 10px;
+        }
+
+        /* --- DETAILED PRODUCTS SECTION --- */
+        .detailed-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-content {
+            padding: 30px;
+            flex-grow: 1;
+        }
+        
+        .product-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .product-content ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .product-content ul li::before {
+            content: '\f058'; /* Font Awesome check-circle icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        
+        .product-card .btn-container {
+            padding: 0 30px 30px;
+        }
+
+        /* --- PROJECTS GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-flex {
+            display: flex;
+            gap: 40px;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+        }
+
+        .contact-info i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* --- FOOTER --- */
+        .main-footer {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            
+            .main-header .container {
+                flex-direction: column;
+            }
+
+            .main-nav ul {
+                margin-top: 1rem;
+                padding: 0;
+            }
+
+            .main-nav ul li {
+                margin: 0 10px;
+            }
+
+            .hero {
+                height: 70vh;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .contact-flex {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="container">
+            <a href="#home" class="logo">Global One Industries</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>The Foundation of Quality, The Art of Living.</h1>
+                <p>From structural integrity to finishing touches, we are your single-source partner for premium building and furnishing materials.</p>
+                <a href="#products" class="btn btn-primary">Explore Our Products</a>
+                <a href="#contact" class="btn btn-secondary">Get a Quote</a>
+            </div>
+        </section>
+
+        <!-- PRODUCTS OVERVIEW -->
+        <section id="products-overview">
+            <div class="container">
+                <h2>One Company, Complete Solutions</h2>
+                <div class="products-grid">
+                    <div class="product-overview-card">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <h3>Premium Plywood</h3>
+                    </div>
+                    <div class="product-overview-card">
+                        <i class="fa-solid fa-chair"></i>
+                        <h3>Crafted Furniture</h3>
+                    </div>
+                    <div class="product-overview-card">
+                        <i class="fa-solid fa-door-closed"></i>
+                        <h3>Doors & Windows</h3>
+                    </div>
+                    <div class="product-overview-card">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <h3>Metal Fabrication</h3>
+                    </div>
+                    <div class="product-overview-card">
+                        <i class="fa-solid fa-water"></i>
+                        <h3>PVC & CPVC Pipes</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT US -->
+        <section id="about">
+            <div class="container">
+                <h2>Our Story: A Legacy of Strength and Craftsmanship</h2>
+                <p>Founded on the principle of providing integrated solutions for the construction and interior design industries, Global One Industries has grown into a trusted name for quality and reliability. Our journey began with a simple vision: to be the most dependable supplier of essential building materials.</p>
+                <h3>Our Mission</h3>
+                <p>To empower builders, designers, and homeowners by providing a comprehensive range of superior-quality products, backed by expert knowledge and unwavering customer support.</p>
+                <h3>Our Vision</h3>
+                <p>To be the leading one-stop solution for building and furnishing materials in the region, known for our commitment to innovation, sustainability, and excellence.</p>
+            </div>
+        </section>
+
+        <!-- DETAILED PRODUCTS -->
+        <section id="products">
+            <div class="container">
+                <h2>Our Product Categories</h2>
+                <div class="detailed-products-grid">
+                    <!-- Plywood Card -->
+                    <article class="product-card">
+                        <img src="https://i.ibb.co/6PST7Vw/plywood-stack.jpg" alt="Stack of premium plywood sheets">
+                        <div class="product-content">
+                            <h3>Premium Plywood</h3>
+                            <p>Engineered for exceptional strength and stability, our plywood is the ideal choice for furniture, cabinetry, and structural applications.</p>
+                            <h4>Available Thickness:</h4>
+                            <ul>
+                                <li>9mm, 12mm, 15mm, and 18mm</li>
+                                <li>Boiling Water Proof (BWP) Grade</li>
+                                <li>Termite & Borer Resistant</li>
+                                <li>High Load-Bearing Capacity</li>
+                            </ul>
+                        </div>
+                        <div class="btn-container">
+                            <a href="#contact" class="btn btn-primary">Request a Quote</a>
+                        </div>
+                    </article>
+                    <!-- Furniture Card -->
+                    <article class="product-card">
+                        <img src="https://i.ibb.co/3Yx4K9v/wooden-chair.jpg" alt="Elegantly crafted wooden chair">
+                        <div class="product-content">
+                            <h3>Wooden Furniture</h3>
+                            <p>Transform your space with our beautifully crafted wooden furniture, combining timeless design with the natural beauty of solid wood.</p>
+                             <h4>Key Features:</h4>
+                            <ul>
+                                <li>Solid, Seasoned Wood Construction</li>
+                                <li>Elegant, High-Quality Finishes</li>
+                                <li>Designs for Living, Dining & Bedroom</li>
+                                <li>Customization Options Available</li>
+                            </ul>
+                        </div>
+                         <div class="btn-container">
+                            <a href="#contact" class="btn btn-primary">View Catalog</a>
+                        </div>
+                    </article>
+                    <!-- Doors & Windows Card -->
+                    <article class="product-card">
+                        <img src="https://i.ibb.co/z5p5D47/pu-coated-door.jpg" alt="Modern PU coated front door">
+                        <div class="product-content">
+                            <h3>PU Coated Doors & Windows</h3>
+                            <p>A flawless Polyurethane (PU) coating provides a durable, high-end finish that is resistant to scratches, moisture, and UV rays.</p>
+                             <h4>Key Features:</h4>
+                            <ul>
+                                <li>Superior PU Finish</li>
+                                <li>All-Weather Protection</li>
+                                <li>Solid Core for Security & Insulation</li>
+                                <li>Termite & Moisture Proof</li>
+                            </ul>
+                        </div>
+                         <div class="btn-container">
+                            <a href="#contact" class="btn btn-primary">Explore Designs</a>
+                        </div>
+                    </article>
+                    <!-- Metal Fabrication Card -->
+                    <article class="product-card">
+                        <img src="https://i.ibb.co/R9m4HjZ/metal-fabrication.jpg" alt="Welder working on metal fabrication">
+                        <div class="product-content">
+                            <h3>Metal Fabrication</h3>
+                            <p>Custom fabrication services in Stainless Steel, Mild Steel, and Aluminum for structural and aesthetic components.</p>
+                            <h4>Our Capabilities:</h4>
+                            <ul>
+                                <li>Gates, Grills & Railings</li>
+                                <li>Structural Frames & Beams</li>
+                                <li>High-Precision Cutting & Welding</li>
+                                <li>Durable Finishes (Powder Coating)</li>
+                            </ul>
+                        </div>
+                         <div class="btn-container">
+                            <a href="#contact" class="btn btn-primary">Discuss Project</a>
+                        </div>
+                    </article>
+                    <!-- Pipes Card -->
+                    <article class="product-card">
+                        <img src="https://i.ibb.co/zG5RjQ7/pvc-pipes.jpg" alt="Stack of white PVC pipes">
+                        <div class="product-content">
+                            <h3>PVC & CPVC Pipes</h3>
+                            <p>Ensure a leak-proof, long-lasting plumbing system with our high-grade pipes and fittings for hot and cold water applications.</p>
+                            <h4>Key Features:</h4>
+                            <ul>
+                                <li>Leak-Proof Joints</li>
+                                <li>Chemical & Corrosion Resistant</li>
+                                <li>Easy & Fast Installation</li>
+                                <li>Long Service Life</li>
+                            </ul>
+                        </div>
+                         <div class="btn-container">
+                            <a href="#contact" class="btn btn-primary">Get Estimate</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS GALLERY -->
+        <section id="projects">
+            <div class="container">
+                <h2>Our Work In Action</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=600&auto=format&fit=crop" alt="Residential Living Room"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=600&auto=format&fit=crop" alt="Modern Kitchen with Plywood Cabinets"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=600&auto=format&fit=crop" alt="Bedroom Furniture"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=600&auto=format&fit=crop" alt="Building Exterior with Doors"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1540998145393-7630749a155c?q=80&w=600&auto=format&fit=crop" alt="Steel Railing Fabrication"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=600&auto=format&fit=crop" alt="Commercial Office Space"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+            <div class="container">
+                <h2>Let's Build Together</h2>
+                <div class="contact-flex">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <p>Whether you have a question, need a quote, or want to discuss a custom project, our team is ready to help. Reach out to us today.</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Global One Industries, 123 Industrial Way, Your City, State 12345</p>
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> sales@globalone.com</p>
+                        <p><strong>Business Hours:</strong><br>
+                            Monday - Friday: 9:00 AM - 6:00 PM<br>
+                            Saturday: 9:00 AM - 2:00 PM<br>
+                            Sunday: Closed
+                        </p>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form action="#"> <!-- NOTE: This form is for display only and does not send emails. -->
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                             <div class="form-group">
+                                <select name="interest" required>
+                                    <option value="">I'm interested in...</option>
+                                    <option value="Plywood">Plywood</option>
+                                    <option value="Furniture">Furniture</option>
+                                    <option value="Doors/Windows">Doors/Windows</option>
+                                    <option value="Metal Fabrication">Metal Fabrication</option>
+                                    <option value="Pipes">Pipes</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>© 2024 Global One Industries. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

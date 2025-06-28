@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global One Consulting - Project Ananta</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;110;150;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Your Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <!-- =========== CSS FOR SPLASH SCREEN & HIDE LOGIC =========== -->
+    <style>
+        .splash-logo {
+            max-width: 500px; /* Adjust size as needed */
+            width: 90%;
+            height: auto;
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                filter: drop-shadow(0 0 5px rgba(255, 223, 150, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(255, 223, 150, 1)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+            }
+            100% {
+                filter: drop-shadow(0 0 5px rgba(255, 223, 150, 0.5));
+            }
+        }
+        #splash-screen {
+            background-color: #0c0a09; /* A very dark, almost black color */
+            /* Add transition for smooth hiding */
+            transition: opacity 0.8s ease-out; /* Only transition opacity */
+        }
+ /* Class to start the hiding process */
+        .splash-hiding {
+            opacity: 0;
+            pointer-events: none; /* Prevent interactions during fade-out */
+        }  
+        /* Class to prevent scrolling when splash screen is active */
+        .no-scroll {
+            overflow: hidden;
+        }
+    </style>
+    <!-- ======================================================= -->
+</head>
+<body class="no-scroll"> <!-- Prevents scrolling while splash is visible -->
+      <!-- =========== SPLASH SCREEN (UPDATED) =========== -->
+      <section id="splash-screen">
+        <div class="splash-content">
+            <img src="images/ANANTA P.png" alt="Ananta Project Logo" class="splash-logo">
+        </div>
+        <!-- "Scroll Down" indicator has been REMOVED as it's no longer needed -->
+    </section>   
+    <!-- Navigation -->
+    <nav class="w-full sticky top-0 z-50" style="background: linear-gradient(100deg, #6c5b31 0%, #c4a65a 20%, #e6d396 50%, #c4a65a 80%, #6c5b31 100%);">
+        <div class="px-4 sm:px-6 lg:px-8 py-2 flex justify-start items-center">
+            <img src="images/Global One consulting final logo.svg" alt="Global One Consulting Logo" class="h-28">
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section h-screen flex items-center justify-center relative">
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <div id="animated-hero-bg" class="w-full h-full"></div>
+        </div>
+        <div class="absolute inset-0  z-[1]"></div>
+        <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-[2]">
+            <div class="logo-circle">
+                <h1 class="ananta-text">अनंता</h1>
+            </div>
+            <div id="hero-paragraph-container" class="text-white text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                <p>Redefining Luxury Living with 5-Star Pre-Leased Service Apartments. A unique opportunity for guaranteed returns and exclusive lifestyle benefits.</p>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6">
+                <a href="Why Choose Project Ananta (5).pdf" class="btn text-lg md:text-xl">Download Investment Plan </a>
+            </div>
+        </div>
+    </section>
+    <!-- Stats Section -->
+<section class="py-10 bg-gray-800 relative overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <div class="animated-image-bg" 
+             style="background-image: url('images/P8zb.gif');">
+        </div>
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+    </div>
+    <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 relative z-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="p-4"><div class="counter-value text-8xl text-[#9c7c38] mb-2" data-target="5">0</div><p class="text-white">Luxury Towers</p></div>
+            <div class="p-4"><div class="counter-value text-8xl text-[#9c7c38] mb-2" data-target="460">0</div><p class="text-white">Units Per Tower</p></div>
+            <div class="p-4"><div class="counter-value text-8xl text-[#9c7c38] mb-2" data-target="24">0</div><p class="text-white">Months to Possession</p></div>
+            <div class="p-4"><div class="counter-value text-8xl text-[#9c7c38] mb-2" data-target="15">0</div><p class="text-white">Days Complimentary Stay</p></div>
+        </div>
+    </div>
+</section>
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-900 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover" loading="lazy">
+                <source src="images/7578550-uhd_3840_2160_30fps - Trim.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="absolute inset-0  opacity-80"></div>
+        </div>
+        <div id="about-content" class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-4xl mb-4 text-white">Premium Developments</h2>
+                <div class="w-24 h-1 bg-[#9c7c38] mx-auto mb-6"></div>
+                <p class="text-white max-w-3xl mx-auto">We create luxury properties that stand as landmarks of architectural excellence and comfort</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                <div class="info-card bg-gray-800 bg-opacity-70 rounded-lg shadow-xl p-8 flex flex-col justify-center">
+                    <h3 class="text-xl text-gray-100 mb-6 text-center"><strong>Project Highlights</strong></h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 00-1 1v2.586L6.707 8.293a1 1 0 00-1.414 1.414L8.586 13H5a1 1 0 00-1 1v2a1 1 0 001 1h10a1 1 0 001-1v-2a1 1 0 00-1-1h-3.586l3.293-3.293a1 1 0 00-1.414-1.414L11 6.586V4a1 1 0 00-1-1z" clip-rule="evenodd" /></svg></span><span><strong>5 Towers</strong> of luxury service apartments</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg></span><span><strong>460 Units</strong> in each tower</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 2a1 1 0 00-1 1v1H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H9V3a1 1 0 00-1-1zM5 8h10v8H5V8z" clip-rule="evenodd" /></svg></span><span><strong>Unit Sizes:</strong> 50 sqm and 135 sqm</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M8.433 7.418c.158-.103.346-.196.567-.267v1.698a2.5 2.5 0 00-.567-.267z" /><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.713 .418 1.5 1.5 0 00-2.28 2.28a3.5 3.5 0 011.282 2.565V14a1 1 0 102 0v-.535a3.5 3.5 0 011.282-2.565 1.5 1.5 0 00-2.28-2.28.051.051.051.051A4.535 4.535 0 0011 5.092V5z" clip-rule="evenodd" /></svg></span><span><strong>Launch Price:</strong> ₹32,50,000</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" /><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" /></svg></span><span><strong>Down Payment:</strong> ₹8,12,500</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg></span><span><strong>Monthly Rental:</strong> ₹25,000</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg></span><span><strong>Possession:</strong> In 24 months</span></li>
+                    </ul>
+                </div>
+                <div class="info-card bg-gray-800 bg-opacity-70 rounded-lg shadow-xl p-8 flex flex-col justify-center">
+                    <h3 class="text-xl text-gray-100 mb-6 text-center"><strong>Investment Benefits</strong></h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.532 1.532 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.532 1.532 0 01-.947-2.287c1.561-.379-1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></span><span>Lifetime free maintenance</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5.068l.153.153L10 10l7.682-4.779A11.954 11.954 0 0110 1.944zM18 8.118l-8 5-8-5V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10 18a2 2 0 001.995-1.858L10 14.586 2.005 16.142A2 2 0 004 18h6z" clip-rule="evenodd" /></svg></span><span>Safe investment with buyback guarantee</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" /></svg></span><span>Any day withdrawal facility</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" /></svg></span><span>15 days complimentary stay per year</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.518.759a1.037 1.037 0 00-.54 1.06A11.952 11.952 0 008.5 16.5a1.037 1.037 0 001.06-.54l.759-1.518a1 1 0 011.06-.54h4.435l.836.986A1 1 0 0117 17.847V19a1 1 0 01-1 1h-2a1 1 0 01-1-1v-.847a1 1 0 01.153-.512l.654-.766-3.053-3.053a1 1 0 00-1.414 0l-3.053 3.053-.766.654a1 1 0 01-.512.153H3a1 1 0 01-1-1V4a1 1 0 011-1z" /></svg></span><span>Complimentary food & beverages</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.934L13.033 17.256A1 1 0 0112 18a1 1 0 01-.967-.744L9.854 12.8l-3.354-1.934a1 1 0 010-1.732l3.354-1.934L11.033 2.744A1 1 0 0112 2z" /></svg></span><span>Free access to all recreational activities</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+   <!-- Amenities Section -->
+    <section id="amenities" class="py-16 bg-gray-900 overflow-hidden">
+        <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl text-white uppercase tracking-widest font-light">Exclusive Amenities</h2>
+                <div class="w-24 h-[2px] bg-[#9c7c38] mx-auto mt-4 mb-6"></div>
+                <p class="text-gray-400 max-w-3xl mx-auto uppercase text-sm tracking-wider font-extralight">A glimpse into the world-class amenities designed to provide an unparalleled luxury experience.</p>
+            </div>       
+            <!-- DYNAMIC AMENITIES GALLERY (for desktop) -->
+            <div class="amenities-wrapper">
+                <div class="hero-bg_wrap-cols">
+                    <!-- Column 1 -->
+                    <div class="hero-bg_wrap-col">
+                        <div class="hero-bg_wrap-slides v-scroll">
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Luxury Swimming Pool" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/3771110/pexels-photo-3771110.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spa and Wellness Center" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="State-of-the-art Gym" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Elegant Hotel Room" /></div>
+                        </div>
+                        <div class="hero-bg_wrap-slides v-scroll">
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Luxury Swimming Pool" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/3771110/pexels-photo-3771110.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spa and Wellness Center" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="State-of-the-art Gym" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Elegant Hotel Room" /></div>
+                        </div>
+                    </div>
+                    <!-- Column 2 -->
+                    <div class="hero-bg_wrap-col">
+                        <div class="hero-bg_wrap-slides scroll2">
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fine Dining Restaurant" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spacious Apartment Interior" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/3144580/pexels-photo-3144580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Modern Bar and Lounge" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Comfortable Living Area" /></div>
+                        </div>
+                        <div class="hero-bg_wrap-slides scroll2">
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fine Dining Restaurant" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spacious Apartment Interior" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/3144580/pexels-photo-3144580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Modern Bar and Lounge" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Comfortable Living Area" /></div>
+                        </div>
+                    </div>
+                    <!-- Column 3 -->
+                    <div class="hero-bg_wrap-col">
+                        <div class="hero-bg_wrap-slides scroll3">
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/2507010/pexels-photo-2507010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rooftop Terrace" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/220551/pexels-photo-220551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Business Conference Room" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/6434622/pexels-photo-6434622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Private Cinema" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Lobby and Concierge Desk" /></div>
+                        </div>
+                        <div class="hero-bg_wrap-slides scroll3">
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/2507010/pexels-photo-2507010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rooftop Terrace" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/220551/pexels-photo-220551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Business Conference Room" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/6434622/pexels-photo-6434622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Private Cinema" /></div>
+                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Lobby and Concierge Desk" /></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-bg-gradient_overlay"></div>
+            </div>
+            <!-- Fallback grid for small screens -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:hidden">
+                <div class="h-64 rounded-lg shadow-xl overflow-hidden"><img src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Luxury Swimming Pool" class="w-full h-full object-cover"></div>
+                <div class="h-64 rounded-lg shadow-xl overflow-hidden"><img src="https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fine Dining Restaurant" class="w-full h-full object-cover"></div>
+                <div class="h-64 rounded-lg shadow-xl overflow-hidden"><img src="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="State-of-the-art Gym" class="w-full h-full object-cover"></div>
+                <div class="h-64 rounded-lg shadow-xl overflow-hidden"><img src="https://images.pexels.com/photos/2507010/pexels-photo-2507010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rooftop Terrace" class="w-full h-full object-cover"></div>
+            </div>
+        </div>
+    </section>
+   <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 z-0"><video autoplay loop muted playsinline class="w-full h-full object-cover" loading="lazy"><source src="videos/testimonials_background.mp4" type="video/mp4"></video><div class="absolute inset-0 bg-black opacity-75"></div></div>
+        <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl text-gray-100 mb-4">What Our Investors Say</h2><div class="w-24 h-1 bg-[#9c7c38] mx-auto mb-6"></div><p class="text-gray-400 max-w-3xl mx-auto">Hear from our satisfied investors who have already secured their place in Project Ananta.</p>
+            </div>
+            
+            <div class="testimonial-scroller-container">
+                <div class="testimonial-scroller space-x-8">
+                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg"><p class="text-gray-300 mb-6 h-32">Investing in Project Ananta has been one of my best financial decisions. The guaranteed rental income and buyback option provide peace of mind.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">RK</div><div><h4 class="text-gray-100">Rajesh Kumar</h4></div></div></div>
+                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg"><p class="text-gray-300 mb-6 h-32">The complimentary stay is an incredible perk. My family loves visiting, and the investment returns have been consistently excellent.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">SP</div><div><h4 class="text-gray-100">Sunita Patel</h4></div></div></div>
+                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg"><p class="text-gray-300 mb-6 h-32">The lifetime free maintenance and guaranteed returns make this a truly hassle-free investment. Highly recommended.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">AM</div><div><h4 class="text-gray-100">Amit Mehta</h4></div></div></div>
+                    
+                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg" aria-hidden="true"><p class="text-gray-300 mb-6 h-32">Investing in Project Ananta has been one of my best financial decisions. The guaranteed rental income and buyback option provide peace of mind.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">RK</div><div><h4 class="text-gray-100">Rajesh Kumar</h4></div></div></div>
+                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg" aria-hidden="true"><p class="text-gray-300 mb-6 h-32">The complimentary stay is an incredible perk. My family loves visiting, and the investment returns have been consistently excellent.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">SP</div><div><h4 class="text-gray-100">Sunita Patel</h4></div></div></div>
+                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg" aria-hidden="true"><p class="text-gray-300 mb-6 h-32">The lifetime free maintenance and guaranteed returns make this a truly hassle-free investment. Highly recommended.</p<div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">AM</div><div><h4 class="text-gray-100">Amit Mehta</h4></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Location Section -->
+<section id="location" class="py-16 bg-gray-900 relative overflow-hidden">
+    <div class="absolute inset-0 z-0"><video autoplay loop muted playsinline class="w-full h-full object-cover" loading="lazy"><source src="videos/location_overview_background.mp4" type="video/mp4"></video><div class="absolute inset-0 bg-black opacity-80"></div></div>
+    <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl text-gray-100 mb-4">Prime Location</h2><div class="w-24 h-1 bg-[#9c7c38] mx-auto mb-6"></div><p class="text-gray-400 max-w-3xl mx-auto">Project Ananta is strategically located to offer convenience, connectivity, and a serene environment.</p></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            
+            <div class="bg-gray-800 bg-opacity-60 p-4 rounded-lg shadow-xl">
+                <div class="w-full h-96 rounded-lg overflow-hidden border-2 border-gray-600">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3578.100913076135!2d78.44328407421946!3d25.63967667724213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDM4JzIyLjgiTiA3OMKwMjYnNDUuMSJF!5e0!3m2!1sen!2sin!4v1678888888888!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>        
+            <div class="bg-gray-800 bg-opacity-60 p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl text-gray-100 mb-6 text-[#9c7c38]">Nearby Conveniences</h3>
+                <ul class="space-y-4 text-gray-300">
+                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>Gwalior Airport (GWL) - Approx. 75 km</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>Datia Railway Station - Approx. 3 km</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>Pitambara Peeth Temple - Approx. 2 km</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>Local Markets & Shops - 10 mins drive</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>District Hospital - 15 mins drive</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>NH 44 (Srinagar-Kanyakumari Highway) Access</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-black text-white">
+        <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl text-gray-100 mb-4">Get in Touch</h2><div class="w-24 h-1 bg-[#9c7c38] mx-auto mb-6"></div><p class="text-gray-100 max-w-3xl mx-auto">Ready to invest? Contact us today, and our expert team will assist you.</p></div>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-700 bg-opacity-60 p-6 md:p-8 rounded-lg shadow-md contact-form">
+                        <h3 class="text-xl text-gray-100 mb-4">Send Us a Message</h3>
+                        <form id="main-contact-form">
+                            <div class="mb-4"><label for="main-name" class="block text-gray-300 mb-2 text-sm">Full Name</label><input type="text" id="main-name" name="name" class="w-full px-3 py-2 rounded-lg" required></div>
+                            <div class="mb-4"><label for="main-email" class="block text-gray-300 mb-2 text-sm">Email Address</label><input type="email" id="main-email" name="email" class="w-full px-3 py-2 rounded-lg" required></div>
+                            <div class="mb-4"><label for="main-phone" class="block text-gray-300 mb-2 text-sm">Mobile Number</label><input type="tel" id="main-phone" name="phone" class="w-full px-3 py-2 rounded-lg"></div>
+                              <div class="mb-6">
+                                <label for="main-interest" class="block text-gray-300 mb-2 text-sm">I'm interested in...</label>
+                              <select id="main-interest" name="interest" class="w-full px-3 py-2 rounded-lg bg-gray-900 text-white" required>
+                                    <option value="" disabled selected>Please select an option</option>
+                                    <option value="Provide a catalog">Provide a catalog</option>
+                                    <option value="Provide an investment plan">Provide an investment plan</option>
+                                    <option value="Provide brochures">Provide brochures</option>
+                                </select>
+                            </div>
+                            <div><button type="submit" class="btn w-full">Send Message</button></div>
+                        </form>
+                        <div id="form-status-message" class="mt-4 text-center"></div>
+                    </div>
+                    <div class="bg-gray-700 bg-opacity-60 p-6 md:p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl text-gray-100 mb-6">Contact Information</h3>
+                        <ul class="space-y-6 text-gray-300">
+                            <li class="flex items-start"><div><strong>Address:</strong><br>Global One Consulting, 123 Luxury Avenue, Metropolis Business Park, Suite 500, India 110001</div></li>
+                            <li class="flex items-start"><div><strong>Phone:</strong><br><a href="tel:+911234567890" class="hover:text-[#9c7c38] transition">+91 123 456 7890</a></div></li>
+                            <li class="flex items-start"><div><strong>Email:</strong><br><a href="mailto:invest@globaloneconsulting.com" class="hover:text-[#9c7c38] transition">invest@globaloneconsulting.com</a></div></li>
+                            <li class="flex items-start"><div><strong>Hours:</strong><br>Mon - Fri: 9:00 AM - 6:00 PM</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ <!-- Our Group Section -->
+<section id="our-group" class="py-20" style="background: linear-gradient(100deg, #6c5b31 0%, #c4a65a 20%, #e6d396 50%, #c4a65a 80%, #c4a651 100%);">
+    <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl text-white mb-4">OUR GROUP</h2><div class="w-24 h-1 bg-yellow-600 mx-auto"></div></div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-16 gap-x-8 items-center text-center text-black" style="font-family: 'Montserrat', sans-serif; font-weight: 200; text-transform: uppercase;">
+            
+            <a href="global-one-mining.html" target="_blank" class="block transition-transform duration-300 hover:scale-105">
+                <div>
+                    <h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3>
+                    <p class="text-xs md:text-sm tracking-wider mt-2">MINES & MINERALS CORP</p>
+                </div>
+            </a>           
+            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">CONSULTING</p></div>
+            
+            <a href="global-one-industries.html" target="_blank" class="block transition-transform duration-300 hover:scale-105">
+                <div>
+                    <h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3>
+                    <p class="text-xs md:text-sm tracking-wider mt-2">INDUSTRIES</p>
+                </div>
+            </a>
+            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">RETAILS</p></div>
+            <div class="flex justify-center"><img src="images/10.png" alt="Global One Group Logo" class="w-32 h-32 md:w-40 md:h-40" loading="lazy"></div>
+            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">AIR WAYS</p></div>
+            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">TECHSOLUTIONS</p></div>
+            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">ASSETS MANAGEMENT</p></div>
+            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">HOLDINGS</p></div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div><h3 class="text-xl text-white mb-4"><span class="text-[#9c7c38]">Global</span>One Consulting</h3><p class="text-sm text-gray-500">Your trusted partner in luxury real estate investments.</p></div>
+                <div><h3 class="text-xl text-white mb-4">Quick Links</h3><ul class="space-y-2"><li><a href="#about" class="hover:text-[#9c7c38]">About Us</a></li><li><a href="#amenities" class="hover:text-[#9c7c38]">Amenities</a></li><li><a href="#contact" class="hover:text-[#9c7c38]">Contact</a></li></ul></div>
+                <div><h3 class="text-xl text-white mb-4">Follow Us</h3><div class="flex space-x-4"><a href="#" class="hover:text-[#9c7c38]">Facebook</a><a href="#" class="hover:text-[#9c7c38]">Twitter</a><a href="#" class="hover:text-[#9c7c38]">Instagram</a></div></div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-sm text-gray-500"><p>© <span id="currentYear"></span> Global One Consulting. All Rights Reserved.</p></div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top"> ↑ </div>
+
+    <!-- Your Custom JavaScript -->
+    <script src="js/script.js" defer></script>
+    <script src="js/chatbot.js" defer></script>
+    <!-- =========== SCRIPT FOR AUTOMATIC SPLASH SCREEN REMOVAL =========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const splashScreen = document.getElementById('splash-screen');
+            const transitionDuration = 800; // This should match the CSS transition duration in ms
+            // Set a timer to hide the splash screen after 6 seconds
+            setTimeout(() => {
+                // Add the class to trigger the fade-out animation
+                splashScreen.classList.add('splash-hiding');                
+                // Remove the no-scroll class from the body to enable scrolling
+                document.body.classList.remove('no-scroll');
+                // After the fade-out transition finishes, set display to none
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                }, transitionDuration); // Wait for the fade out to complete
+            }, 6000); // 6000 milliseconds = 6 seconds
+        });
+    </script>     
+</body>
+</html>

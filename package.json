@@ -1,0 +1,28 @@
+{
+  "name": "ananta-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g1-on/project-ananta-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/g1-on/project-ananta-website/issues"
+  },
+  "homepage": "https://github.com/g1-on/project-ananta-website#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "exceljs": "^4.4.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "sqlite3": "^5.1.7"
+  }
+}

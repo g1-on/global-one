@@ -1,0 +1,113 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #111827;
+    color: #D1D5DB;
+    margin: 0;
+    padding: 2rem;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #1F2937;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+h1, h2 {
+    color: #BF953F;
+    border-bottom: 2px solid #374151;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.login-form {
+    max-width: 400px;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #374151;
+    border: 1px solid #4B5563;
+    color: #E5E7EB;
+    border-radius: 5px;
+}
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728);
+    background-size: 200% auto;
+    color: #111;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.btn:hover {
+    background-position: right center;
+}
+.error {
+    color: #F87171;
+    background-color: #450A0A;
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #374151;
+    vertical-align: top;
+}
+th {
+    background-color: #374151;
+    color: #BF953F;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+.logout-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    text-decoration: none;
+}
+/* Add these new styles to public/css/admin-style.css */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #374151;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-header h1 {
+    border-bottom: none; /* Remove double border */
+    margin-bottom: 0;
+}
+
+.download-btn {
+    padding: 8px 16px; /* A bit smaller than the main buttons */
+}
+
+.message-box {
+    padding: 1rem;
+    background-color: #1E40AF; /* A blue background for info */
+    color: #DBEAFE;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
