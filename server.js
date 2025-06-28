@@ -14,7 +14,7 @@ if (!process.env.SESSION_SECRET) {
 }
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 // ===== MIDDLEWARE SETUP =====
 
@@ -159,6 +159,6 @@ app.post('/api/contact', (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-    console.log(`Admin login is available at http://localhost:${PORT}/admin/login.html`);
+    console.log(`Server is running on port ${PORT}`);
+  console.log(`Admin login should be accessible through the public URL.`);
 });
