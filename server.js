@@ -7,6 +7,11 @@ const exceljs = require('exceljs');
 
 // Load environment variables from .env file for local development
 require('dotenv').config();
+if (!process.env.SESSION_SECRET) {
+    console.error('FATAL ERROR: SESSION_SECRET is not defined.');
+    console.error('Please set the SESSION_SECRET environment variable.');
+    process.exit(1); // Exit the process with a failure code
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
