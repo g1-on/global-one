@@ -2,103 +2,378 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- THIS IS THE MOST IMPORTANT TAG FOR RESPONSIVENESS -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global One Consulting - Project Ananta</title>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;110;150;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
     <!-- Your Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/chatbot.css">
-    <!-- =========== CSS FOR SPLASH SCREEN & HIDE LOGIC =========== -->
     <style>
-        .splash-logo {
-            max-width: 500px; /* Adjust size as needed */
-            width: 90%;
-            height: auto;
-            animation: pulse-glow 3s infinite ease-in-out;
+        :root {
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --chatbot-gold: #c4a65a;
+            --chatbot-dark: #1F2937;
+            --chatbot-light-dark: #374151;
+            --chatbot-text: #E5E7EB;
         }
 
-        @keyframes pulse-glow {
-            0% {
-                filter: drop-shadow(0 0 5px rgba(255, 223, 150, 0.5));
-            }
-            50% {
-                filter: drop-shadow(0 0 25px rgba(255, 223, 150, 1)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
-            }
-            100% {
-                filter: drop-shadow(0 0 5px rgba(255, 223, 150, 0.5));
-            }
-        }
-        #splash-screen {
-            background-color: #0c0a09; /* A very dark, almost black color */
-            /* Add transition for smooth hiding */
-            transition: opacity 0.8s ease-out; /* Only transition opacity */
-        }
- /* Class to start the hiding process */
-        .splash-hiding {
-            opacity: 0;
-            pointer-events: none; /* Prevent interactions during fade-out */
-        }  
-        /* Class to prevent scrolling when splash screen is active */
-        .no-scroll {
+        /* --- Splash Screen Styles --- */
+        body.splash-active {
             overflow: hidden;
         }
+        #splash-screen {
+            height: 100vh;
+            width: 100%;
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 9999;
+            transition: opacity 0.8s ease-out, visibility 0s 0.8s;
+        }
+        #splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .splash-content {
+            text-align: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #splash-ring-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            height: 90vh;
+            max-width: 700px;
+            max-height: 700px;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .splash-ananta {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: 4rem; /* Base size for mobile */
+            color: #ecbb4f;
+            font-weight: 400;
+            text-transform: none;
+            animation: glow 2.5s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 11;
+        }
+        @media (min-width: 640px) {
+            .splash-ananta {
+                font-size: 7rem;
+            }
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 1px 1px 0 #5a4014, 2px 2px 0 #5a4014, 3px 3px 0 #5a4014, 4px 4px 0 #5a4014, 5px 5px 0 #5a4014, 0 0 5px rgba(252, 234, 187, 0.8), 0 0 15px rgba(236, 187, 79, 0.7), 0 0 30px rgba(231, 179, 61, 0.5);
+            }
+            to {
+                text-shadow: 0 0 10px rgba(252, 234, 187, 0.9), 0 0 25px rgba(236, 187, 79, 0.8), 0 0 40px rgba(231, 179, 61, 0.6);
+            }
+        }
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            font-weight: 200;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            animation: bounce 2s ease-in-out infinite;
+            z-index: 100;
+        }
+        .scroll-down-indicator svg { width: 24px; height: 24px; margin: 0 auto 5px; }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -10px); }
+            60% { transform: translate(-50%, -5px); }
+        }
+        nav { position: sticky; top: 0; z-index: 50; }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #D1D5DB;
+            background-color: #000000;
+            font-weight: 200;
+            text-transform: uppercase;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        h1, h2, h3, h4, h5, h6, p, span, div, li, a, label, legend, th, td, button, input, textarea, select { font-weight: inherit; }
+        strong, b { font-weight: 700; }
+        .btn {
+            display: inline-block; padding: 12px 28px; background: var(--gold-gradient); background-size: 200% auto; color: #111; text-decoration: none; font-weight: 600; border-radius: 5px; transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.4s ease; border: none; cursor: pointer; text-align: center;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(191, 149, 63, 0.2); background-position: right center; }
+        .logo-circle {
+            width: 220px;
+            height: 220px;
+            border-image-slice: 1; border-image-source: var(--gold-gradient); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; animation: pulse 4s infinite ease-in-out;
+        }
+        @media (min-width: 768px) {
+            .logo-circle {
+                width: 280px;
+                height: 280px;
+            }
+        }
+        .ananta-text {
+            font-family: 'Tiro Devanagari Hindi', serif;
+            font-size: 3.5rem; /* Base for mobile */
+            color: #ecbb4f; text-shadow: 0 0 5px rgba(236, 187, 79, 0.5), 0 0 15px rgba(236, 187, 79, 0.5), 0 0 30px rgba(236, 187, 79, 0.4);
+        }
+        @media (min-width: 768px) {
+            .ananta-text {
+                font-size: 5rem;
+            }
+        }
+
+        .hero-sentence { display: block; opacity: 0; transform: translateY(25px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .hero-sentence.visible { opacity: 1; transform: translateY(0); }
+        .scroll-to-top { position: fixed; bottom: 20px; right: 20px; background-color: #9c7c38; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: opacity 0.3s ease; z-index: 100; font-size: 1.5rem; }
+        .scroll-to-top.visible { opacity: 1; }
+        .counter-value { font-family: 'Montserrat', sans-serif; font-weight: 500; }
+
+        #animated-hero-bg {
+            background-image: url('images/h0010.jpg');
+            background-size: cover;
+            background-position: center 100%;
+            animation: rise 10s ease-out forwards;
+            animation-delay: 1.5s;
+        }
+        @keyframes rise { from { background-position: center 100%; } to { background-position: center 50%; } }
+        
+        #about-content { opacity: 0; transform: translateY(40px); transition: opacity 1s ease-out, transform 1s ease-out; }
+        #about-content.visible { opacity: 1; transform: translateY(0); }
+        .info-card { transition: all 0.3s ease-out; transform-style: preserve-3d; }
+        .info-card:hover { box-shadow: 0 0 15px rgba(191, 149, 63, 0.3), 0 0 30px rgba(191, 149, 63, 0.2); }
+        .list-item { opacity: 0; transform: translateX(-20px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
+        #about.visible .list-item { opacity: 1; transform: translateX(0); }
+
+        /* --- Swiper Styles for Amenities --- */
+        #amenities .swiper {
+            width: 100%;
+            max-width: 450px;
+            height: 450px;
+            position: relative;
+            margin: 2rem auto;
+        }
+        #amenities .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            background-color: var(--chatbot-light-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            color: white;
+            border: 1px solid var(--chatbot-gold);
+        }
+        #amenities .swiper-slide img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .swiper-slide-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            backdrop-filter: blur(4px);
+        }
+        .swiper-slide-active .swiper-slide-content {
+            transform: translateY(0);
+            opacity: 1;
+            transition-delay: 0.4s;
+        }
+        .swiper-slide-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--chatbot-gold);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .swiper-slide-content p {
+            font-size: 0.8rem;
+            text-transform: none;
+            font-weight: 200;
+        }
+
+        /* --- Swiper Styles for Testimonials --- */
+        #testimonials .swiper {
+            width: 100%;
+            max-width: 500px; /* Wider for text content */
+            height: 350px; /* Shorter than image cube */
+            margin-top: 2rem;
+        }
+        #testimonials .swiper-slide {
+            background: rgba(31, 41, 55, 0.7); /* bg-gray-800 with opacity */
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--chatbot-gold);
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem;
+            box-sizing: border-box;
+        }
+        #testimonials .testimonial-content-wrapper {
+             text-align: left;
+             width: 100%;
+             font-size: 1rem;
+             text-transform: none;
+             font-weight: 200;
+        }
+        #testimonials .testimonial-content-wrapper p {
+            min-height: 120px;
+            font-style: italic;
+            color: #D1D5DB; /* text-gray-300 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        #testimonials .testimonial-content-wrapper h4 {
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #E5E7EB; /* text-gray-200 */
+        }
+
+        /* Generic Swiper Pagination & Cube Styles */
+        .swiper-pagination-bullet {
+            background-color: #fff;
+            opacity: 0.6;
+        }
+        .swiper-pagination-bullet-active {
+            background: var(--chatbot-gold);
+            opacity: 1;
+        }
+        .swiper-cube .swiper-slide-shadow-left,
+        .swiper-cube .swiper-slide-shadow-right,
+        .swiper-cube .swiper-slide-shadow-top,
+        .swiper-cube .swiper-slide-shadow-bottom {
+            background: rgba(0,0,0,0.9);
+        }
+
+        /* Chatbot Styles */
+        #chatbot-toggle-button { position: fixed; bottom: 25px; left: 25px; width: 60px; height: 60px; background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728); color: #111; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); z-index: 998; transition: transform 0.3s ease; font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 700; }
+        #chatbot-toggle-button:hover { transform: scale(1.1); }
+        #chatbot-container { position: fixed; bottom: 100px; left: 25px; width: 350px; max-width: 90vw; height: 500px; max-height: 70vh; background-color: var(--chatbot-dark); border: 1px solid var(--chatbot-gold); border-radius: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); z-index: 999; display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95) translateY(10px); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; transform-origin: bottom left; visibility: hidden; }
+        #chatbot-container.visible { transform: scale(1) translateY(0); opacity: 1; visibility: visible; }
+        #chatbot-header { background-color: var(--chatbot-light-dark); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--chatbot-gold); }
+        #chatbot-header h3 { color: var(--chatbot-gold); font-size: 1rem; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        #chatbot-close-btn { background: none; border: none; color: var(--chatbot-text); font-size: 2rem; cursor: pointer; line-height: 1; }
+        #chatbot-messages { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .chat-message { padding: 10px 15px; border-radius: 18px; max-width: 80%; line-height: 1.5; font-size: 0.9rem; text-transform: none; }
+        .chat-message.bot { background-color: var(--chatbot-light-dark); color: var(--chatbot-text); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .chat-message.user { background-color: var(--chatbot-gold); color: #111; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-message a { color: #fbf5b7; text-decoration: underline; }
+        .chat-message.typing-indicator span { display: inline-block; width: 8px; height: 8px; background-color: var(--chatbot-gold); border-radius: 50%; margin: 0 2px; animation: bounce-chat 1.2s infinite ease-in-out; }
+        .chat-message.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-message.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce-chat { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+        #chatbot-input-container { padding: 10px; border-top: 1px solid var(--chatbot-light-dark); }
+        #chatbot-form { display: flex; gap: 10px; }
+        #chatbot-input { flex-grow: 1; border: 1px solid #4b5563; background-color: #374151; color: #e5e7eb; border-radius: 20px; padding: 10px 15px; outline: none; transition: border-color 0.2s; }
+        #chatbot-input:focus { border-color: var(--chatbot-gold); }
+        #chatbot-send-btn { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background-color: var(--chatbot-gold); color: var(--chatbot-dark); border: none; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: background-color 0.2s; }
+        #chatbot-send-btn:hover { background-color: #e6d396; }
+        #chatbot-send-btn svg { width: 20px; height: 20px; }
+        @media (max-width: 640px) { #chatbot-toggle-button, #chatbot-container { display: none; } }
     </style>
-    <!-- ======================================================= -->
 </head>
-<body class="no-scroll"> <!-- Prevents scrolling while splash is visible -->
-      <!-- =========== SPLASH SCREEN (UPDATED) =========== -->
+<body class="splash-active">
       <section id="splash-screen">
         <div class="splash-content">
-            <img src="images/ANANTA P.png" alt="Ananta Project Logo" class="splash-logo">
+            <video id="splash-ring-video" autoplay muted playsinline preload="auto">
+                <source src="images/Q (1).mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h1 class="splash-ananta">अनंता</h1>
         </div>
-        <!-- "Scroll Down" indicator has been REMOVED as it's no longer needed -->
-    </section>   
+        <div class="scroll-down-indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+            </svg>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+    
     <!-- Navigation -->
     <nav class="w-full sticky top-0 z-50" style="background: linear-gradient(100deg, #6c5b31 0%, #c4a65a 20%, #e6d396 50%, #c4a65a 80%, #6c5b31 100%);">
         <div class="px-4 sm:px-6 lg:px-8 py-2 flex justify-start items-center">
-            <img src="images/Global One consulting final logo.svg" alt="Global One Consulting Logo" class="h-28">
+            <img src="images/Global One consulting final logo.svg" alt="Global One Consulting Logo" class="h-24 md:h-28">
         </div>
     </nav>
+
     <!-- Hero Section -->
     <section id="home" class="hero-section h-screen flex items-center justify-center relative">
         <div class="absolute inset-0 overflow-hidden z-0">
             <div id="animated-hero-bg" class="w-full h-full"></div>
         </div>
-        <div class="absolute inset-0  z-[1]"></div>
+        <div class="absolute inset-0 z-[1]"></div>
         <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-[2]">
             <div class="logo-circle">
                 <h1 class="ananta-text">अनंता</h1>
             </div>
-            <div id="hero-paragraph-container" class="text-white text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            <div id="hero-paragraph-container" class="text-white text-lg md:text-2xl mb-8 max-w-3xl mx-auto">
                 <p>Redefining Luxury Living with 5-Star Pre-Leased Service Apartments. A unique opportunity for guaranteed returns and exclusive lifestyle benefits.</p>
             </div>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6">
-                <a href="Why Choose Project Ananta (5).pdf" class="btn text-lg md:text-xl">Download Investment Plan </a>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-6">
+                <a href="Why Choose Project Ananta (5).pdf" class="btn text-base md:text-xl w-full sm:w-auto">Download Investment Plan </a>
             </div>
         </div>
     </section>
+
     <!-- Stats Section -->
-<section class="py-10 bg-gray-800 relative overflow-hidden">
-    <div class="absolute inset-0 z-0">
-        <div class="animated-image-bg" 
-             style="background-image: url('images/P8zb.gif');">
+    <section class="py-10 bg-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover" loading="lazy">
+                <source src="images/4525107-uhd_3840_2160_24fps.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="absolute inset-0 opacity-60"></div>
         </div>
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-    </div>
-    <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 relative z-10">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div class="p-4"><div class="counter-value text-8xl text-[#9c7c38] mb-2" data-target="5">0</div><p class="text-white">Luxury Towers</p></div>
-            <div class="p-4"><div class="counter-value text-8xl text-[#9c7c38] mb-2" data-target="460">0</div><p class="text-white">Units Per Tower</p></div>
-            <div class="p-4"><div class="counter-value text-8xl text-[#9c7c38] mb-2" data-target="24">0</div><p class="text-white">Months to Possession</p></div>
-            <div class="p-4"><div class="counter-value text-8xl text-[#9c7c38] mb-2" data-target="15">0</div><p class="text-white">Days Complimentary Stay</p></div>
+        <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-3 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-4"><div class="counter-value text-6xl md:text-8xl text-[#9c7c38] mb-2" data-target="5">0</div><p class="text-gray-400 text-sm">Luxury Towers</p></div>
+                <div class="p-4"><div class="counter-value text-6xl md:text-8xl text-[#9c7c38] mb-2" data-target="460">0</div><p class="text-gray-400 text-sm">Units Per Tower</p></div>
+                <div class="p-4"><div class="counter-value text-6xl md:text-8xl text-[#9c7c38] mb-2" data-target="24">0</div><p class="text-gray-400 text-sm">Months to Possession</p></div>
+                <div class="p-4"><div class="counter-value text-6xl md:text-8xl text-[#9c7c38] mb-2" data-target="15">0</div><p class="text-gray-400 text-sm">Days Complimentary Stay</p></div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
     <!-- About Section -->
     <section id="about" class="py-16 bg-gray-900 relative overflow-hidden">
         <div class="absolute inset-0 z-0">
@@ -106,16 +381,16 @@
                 <source src="images/7578550-uhd_3840_2160_30fps - Trim.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <div class="absolute inset-0  opacity-80"></div>
+            <div class="absolute inset-0 opacity-80"></div>
         </div>
         <div id="about-content" class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12">
-                <h2 class="text-4xl md:text-4xl mb-4 text-white">Premium Developments</h2>
+                <h2 class="text-3xl md:text-4xl mb-4 text-white">Premium Developments</h2>
                 <div class="w-24 h-1 bg-[#9c7c38] mx-auto mb-6"></div>
                 <p class="text-white max-w-3xl mx-auto">We create luxury properties that stand as landmarks of architectural excellence and comfort</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-                <div class="info-card bg-gray-800 bg-opacity-70 rounded-lg shadow-xl p-8 flex flex-col justify-center">
+                <div class="info-card bg-gray-800 bg-opacity-70 rounded-lg shadow-xl p-6 md:p-8 flex flex-col justify-center">
                     <h3 class="text-xl text-gray-100 mb-6 text-center"><strong>Project Highlights</strong></h3>
                     <ul class="space-y-4 text-gray-300">
                         <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a1 1 0 00-1 1v2.586L6.707 8.293a1 1 0 00-1.414 1.414L8.586 13H5a1 1 0 00-1 1v2a1 1 0 001 1h10a1 1 0 001-1v-2a1 1 0 00-1-1h-3.586l3.293-3.293a1 1 0 00-1.414-1.414L11 6.586V4a1 1 0 00-1-1z" clip-rule="evenodd" /></svg></span><span><strong>5 Towers</strong> of luxury service apartments</span></li>
@@ -127,10 +402,10 @@
                         <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg></span><span><strong>Possession:</strong> In 24 months</span></li>
                     </ul>
                 </div>
-                <div class="info-card bg-gray-800 bg-opacity-70 rounded-lg shadow-xl p-8 flex flex-col justify-center">
+                <div class="info-card bg-gray-800 bg-opacity-70 rounded-lg shadow-xl p-6 md:p-8 flex flex-col justify-center">
                     <h3 class="text-xl text-gray-100 mb-6 text-center"><strong>Investment Benefits</strong></h3>
                     <ul class="space-y-4 text-gray-300">
-                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.532 1.532 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.532 1.532 0 01-.947-2.287c1.561-.379-1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></span><span>Lifetime free maintenance</span></li>
+                        <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.532 1.532 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.532 1.532 0 01-.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" /></svg></span><span>Lifetime free maintenance</span></li>
                         <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5.068l.153.153L10 10l7.682-4.779A11.954 11.954 0 0110 1.944zM18 8.118l-8 5-8-5V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M10 18a2 2 0 001.995-1.858L10 14.586 2.005 16.142A2 2 0 004 18h6z" clip-rule="evenodd" /></svg></span><span>Safe investment with buyback guarantee</span></li>
                         <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" /></svg></span><span>Any day withdrawal facility</span></li>
                         <li class="list-item flex items-start"><span class="text-[#9c7c38] mr-3 mt-1 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" /></svg></span><span>15 days complimentary stay per year</span></li>
@@ -141,129 +416,141 @@
             </div>
         </div>
     </section>
+
    <!-- Amenities Section -->
     <section id="amenities" class="py-16 bg-gray-900 overflow-hidden">
         <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-4xl text-white uppercase tracking-widest font-light">Exclusive Amenities</h2>
+                <h2 class="text-3xl md:text-4xl text-white uppercase tracking-widest font-light">Exclusive Amenities</h2>
                 <div class="w-24 h-[2px] bg-[#9c7c38] mx-auto mt-4 mb-6"></div>
                 <p class="text-gray-400 max-w-3xl mx-auto uppercase text-sm tracking-wider font-extralight">A glimpse into the world-class amenities designed to provide an unparalleled luxury experience.</p>
-            </div>       
-            <!-- DYNAMIC AMENITIES GALLERY (for desktop) -->
-            <div class="amenities-wrapper">
-                <div class="hero-bg_wrap-cols">
-                    <!-- Column 1 -->
-                    <div class="hero-bg_wrap-col">
-                        <div class="hero-bg_wrap-slides v-scroll">
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Luxury Swimming Pool" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/3771110/pexels-photo-3771110.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spa and Wellness Center" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="State-of-the-art Gym" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Elegant Hotel Room" /></div>
-                        </div>
-                        <div class="hero-bg_wrap-slides v-scroll">
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Luxury Swimming Pool" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/3771110/pexels-photo-3771110.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spa and Wellness Center" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="State-of-the-art Gym" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/262047/pexels-photo-262047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Elegant Hotel Room" /></div>
+            </div>
+            
+            <div class="swiper amenitiesSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Luxury Swimming Pool" />
+                        <div class="swiper-slide-content">
+                            <h3>Infinity Pool</h3>
+                            <p>Relax and rejuvenate in our temperature-controlled luxury pool.</p>
                         </div>
                     </div>
-                    <!-- Column 2 -->
-                    <div class="hero-bg_wrap-col">
-                        <div class="hero-bg_wrap-slides scroll2">
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fine Dining Restaurant" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spacious Apartment Interior" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/3144580/pexels-photo-3144580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Modern Bar and Lounge" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Comfortable Living Area" /></div>
-                        </div>
-                        <div class="hero-bg_wrap-slides scroll2">
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fine Dining Restaurant" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spacious Apartment Interior" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/3144580/pexels-photo-3144580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Modern Bar and Lounge" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Comfortable Living Area" /></div>
+                    <div class="swiper-slide">
+                        <img src="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="State-of-the-art Gym" />
+                        <div class="swiper-slide-content">
+                            <h3>Fitness Center</h3>
+                            <p>Stay active with our fully-equipped, modern gymnasium.</p>
                         </div>
                     </div>
-                    <!-- Column 3 -->
-                    <div class="hero-bg_wrap-col">
-                        <div class="hero-bg_wrap-slides scroll3">
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/2507010/pexels-photo-2507010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rooftop Terrace" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/220551/pexels-photo-220551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Business Conference Room" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/6434622/pexels-photo-6434622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Private Cinema" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Lobby and Concierge Desk" /></div>
+                    <div class="swiper-slide">
+                        <img src="https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fine Dining Restaurant" />
+                        <div class="swiper-slide-content">
+                            <h3>Fine Dining</h3>
+                            <p>Experience gourmet cuisine at our exclusive in-house restaurant.</p>
                         </div>
-                        <div class="hero-bg_wrap-slides scroll3">
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/2507010/pexels-photo-2507010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rooftop Terrace" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/220551/pexels-photo-220551.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Business Conference Room" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/6434622/pexels-photo-6434622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Private Cinema" /></div>
-                            <div class="hero-bg_wrap_slide"><img src="https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Lobby and Concierge Desk" /></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.pexels.com/photos/3771110/pexels-photo-3771110.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Spa and Wellness Center" />
+                        <div class="swiper-slide-content">
+                            <h3>Wellness Spa</h3>
+                            <p>Indulge in a range of therapies for complete relaxation.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.pexels.com/photos/6434622/pexels-photo-6434622.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Private Cinema" />
+                        <div class="swiper-slide-content">
+                            <h3>Private Cinema</h3>
+                            <p>Enjoy movie nights in our exclusive, state-of-the-art theater.</p>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <img src="https://images.pexels.com/photos/2507010/pexels-photo-2507010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rooftop Terrace" />
+                        <div class="swiper-slide-content">
+                            <h3>Rooftop Lounge</h3>
+                            <p>Unwind with panoramic views from our stunning rooftop terrace.</p>
                         </div>
                     </div>
                 </div>
-                <div class="hero-bg-gradient_overlay"></div>
+                <div class="swiper-pagination"></div>
             </div>
-            <!-- Fallback grid for small screens -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:hidden">
-                <div class="h-64 rounded-lg shadow-xl overflow-hidden"><img src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Luxury Swimming Pool" class="w-full h-full object-cover"></div>
-                <div class="h-64 rounded-lg shadow-xl overflow-hidden"><img src="https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fine Dining Restaurant" class="w-full h-full object-cover"></div>
-                <div class="h-64 rounded-lg shadow-xl overflow-hidden"><img src="https://images.pexels.com/photos/803975/pexels-photo-803975.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="State-of-the-art Gym" class="w-full h-full object-cover"></div>
-                <div class="h-64 rounded-lg shadow-xl overflow-hidden"><img src="https://images.pexels.com/photos/2507010/pexels-photo-2507010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rooftop Terrace" class="w-full h-full object-cover"></div>
-            </div>
+
         </div>
     </section>
-   <!-- Testimonials Section -->
-    <section class="py-16 bg-gray-800 relative overflow-hidden">
-        <div class="absolute inset-0 z-0"><video autoplay loop muted playsinline class="w-full h-full object-cover" loading="lazy"><source src="videos/testimonials_background.mp4" type="video/mp4"></video><div class="absolute inset-0 bg-black opacity-75"></div></div>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-gray-800 relative overflow-hidden">
+        <div class="absolute inset-0 z-0"><video autoplay loop muted playsinline class="w-full h-full object-cover" loading="lazy"><source src="images/testimonials_background.mp4" type="video/mp4"></video><div class="absolute inset-0 bg-black opacity-75"></div></div>
         <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl text-gray-100 mb-4">What Our Investors Say</h2><div class="w-24 h-1 bg-[#9c7c38] mx-auto mb-6"></div><p class="text-gray-400 max-w-3xl mx-auto">Hear from our satisfied investors who have already secured their place in Project Ananta.</p>
             </div>
             
-            <div class="testimonial-scroller-container">
-                <div class="testimonial-scroller space-x-8">
-                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg"><p class="text-gray-300 mb-6 h-32">Investing in Project Ananta has been one of my best financial decisions. The guaranteed rental income and buyback option provide peace of mind.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">RK</div><div><h4 class="text-gray-100">Rajesh Kumar</h4></div></div></div>
-                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg"><p class="text-gray-300 mb-6 h-32">The complimentary stay is an incredible perk. My family loves visiting, and the investment returns have been consistently excellent.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">SP</div><div><h4 class="text-gray-100">Sunita Patel</h4></div></div></div>
-                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg"><p class="text-gray-300 mb-6 h-32">The lifetime free maintenance and guaranteed returns make this a truly hassle-free investment. Highly recommended.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">AM</div><div><h4 class="text-gray-100">Amit Mehta</h4></div></div></div>
-                    
-                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg" aria-hidden="true"><p class="text-gray-300 mb-6 h-32">Investing in Project Ananta has been one of my best financial decisions. The guaranteed rental income and buyback option provide peace of mind.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">RK</div><div><h4 class="text-gray-100">Rajesh Kumar</h4></div></div></div>
-                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg" aria-hidden="true"><p class="text-gray-300 mb-6 h-32">The complimentary stay is an incredible perk. My family loves visiting, and the investment returns have been consistently excellent.</p><div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">SP</div><div><h4 class="text-gray-100">Sunita Patel</h4></div></div></div>
-                    <div class="testimonial-card w-96 bg-gray-700 bg-opacity-50 p-8 rounded-lg shadow-lg" aria-hidden="true"><p class="text-gray-300 mb-6 h-32">The lifetime free maintenance and guaranteed returns make this a truly hassle-free investment. Highly recommended.</p<div class="flex items-center"><div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">AM</div><div><h4 class="text-gray-100">Amit Mehta</h4></div></div></div>
+            <!-- Swiper container for Testimonials -->
+            <div class="swiper testimonialsSwiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-content-wrapper">
+                            <p>"Investing in Project Ananta has been one of my best financial decisions. The guaranteed rental income and buyback option provide peace of mind."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">RK</div>
+                                <div><h4>Rajesh Kumar</h4></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-content-wrapper">
+                            <p>"The complimentary stay is an incredible perk. My family loves visiting, and the investment returns have been consistently excellent."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">SP</div>
+                                <div><h4>Sunita Patel</h4></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-content-wrapper">
+                            <p>"The lifetime free maintenance and guaranteed returns make this a truly hassle-free investment. Highly recommended for any portfolio."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-[#9c7c38] rounded-full flex items-center justify-center text-white text-xl mr-4">AM</div>
+                                <div><h4>Amit Mehta</h4></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
+
         </div>
     </section>
+
 <!-- Location Section -->
 <section id="location" class="py-16 bg-gray-900 relative overflow-hidden">
-    <div class="absolute inset-0 z-0"><video autoplay loop muted playsinline class="w-full h-full object-cover" loading="lazy"><source src="videos/location_overview_background.mp4" type="video/mp4"></video><div class="absolute inset-0 bg-black opacity-80"></div></div>
+    <div class="absolute inset-0 z-0"><video autoplay loop muted playsinline class="w-full h-full object-cover" loading="lazy"><source src="images/location_overview_background.mp4" type="video/mp4"></video><div class="absolute inset-0 bg-black opacity-80"></div></div>
     <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl text-gray-100 mb-4">Prime Location</h2><div class="w-24 h-1 bg-[#9c7c38] mx-auto mb-6"></div><p class="text-gray-400 max-w-3xl mx-auto">Project Ananta is strategically located to offer convenience, connectivity, and a serene environment.</p></div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            
             <div class="bg-gray-800 bg-opacity-60 p-4 rounded-lg shadow-xl">
-                <div class="w-full h-96 rounded-lg overflow-hidden border-2 border-gray-600">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3578.100913076135!2d78.44328407421946!3d25.63967667724213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDM4JzIyLjgiTiA3OMKwMjYnNDUuMSJF!5e0!3m2!1sen!2sin!4v1678888888888!5m2!1sen!2sin" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                <div class="w-full h-80 md:h-96 rounded-lg overflow-hidden border-2 border-gray-600">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3578.100913076135!2d78.44328407421946!3d25.63967667724213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDM4JzIyLjgiTiA3OMKwMjYnNDUuMSJF!5e0!3m2!1sen!2sin!4v1678888888888!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-            </div>        
-            <div class="bg-gray-800 bg-opacity-60 p-8 rounded-lg shadow-md">
+            </div>
+            <div class="bg-gray-800 bg-opacity-60 p-6 md:p-8 rounded-lg shadow-md">
                 <h3 class="text-2xl text-gray-100 mb-6 text-[#9c7c38]">Nearby Conveniences</h3>
                 <ul class="space-y-4 text-gray-300">
-                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>Gwalior Airport (GWL) - Approx. 75 km</span></li>
-                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>Datia Railway Station - Approx. 3 km</span></li>
-                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>Pitambara Peeth Temple - Approx. 2 km</span></li>
-                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>Local Markets & Shops - 10 mins drive</span></li>
-                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>District Hospital - 15 mins drive</span></li>
-                    <li class="flex items-center"><span class="contact-icon-placeholder">•</span> <span>NH 44 (Srinagar-Kanyakumari Highway) Access</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder mr-2">•</span> <span>Gwalior Airport (GWL) - Approx. 75 km</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder mr-2">•</span> <span>Datia Railway Station - Approx. 3 km</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder mr-2">•</span> <span>Pitambara Peeth Temple - Approx. 2 km</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder mr-2">•</span> <span>Local Markets & Shops - 10 mins drive</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder mr-2">•</span> <span>District Hospital - 15 mins drive</span></li>
+                    <li class="flex items-center"><span class="contact-icon-placeholder mr-2">•</span> <span>NH 44 (Srinagar-Kanyakumari Highway) Access</span></li>
                 </ul>
             </div>
         </div>
     </div>
 </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-black text-white">
         <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -273,12 +560,12 @@
                     <div class="bg-gray-700 bg-opacity-60 p-6 md:p-8 rounded-lg shadow-md contact-form">
                         <h3 class="text-xl text-gray-100 mb-4">Send Us a Message</h3>
                         <form id="main-contact-form">
-                            <div class="mb-4"><label for="main-name" class="block text-gray-300 mb-2 text-sm">Full Name</label><input type="text" id="main-name" name="name" class="w-full px-3 py-2 rounded-lg" required></div>
-                            <div class="mb-4"><label for="main-email" class="block text-gray-300 mb-2 text-sm">Email Address</label><input type="email" id="main-email" name="email" class="w-full px-3 py-2 rounded-lg" required></div>
-                            <div class="mb-4"><label for="main-phone" class="block text-gray-300 mb-2 text-sm">Mobile Number</label><input type="tel" id="main-phone" name="phone" class="w-full px-3 py-2 rounded-lg"></div>
+                            <div class="mb-4"><label for="main-name" class="block text-gray-300 mb-2 text-sm">Full Name</label><input type="text" id="main-name" name="name" class="w-full px-3 py-2 rounded-lg bg-gray-900 text-white" required></div>
+                            <div class="mb-4"><label for="main-email" class="block text-gray-300 mb-2 text-sm">Email Address</label><input type="email" id="main-email" name="email" class="w-full px-3 py-2 rounded-lg bg-gray-900 text-white" required></div>
+                            <div class="mb-4"><label for="main-phone" class="block text-gray-300 mb-2 text-sm">Mobile Number</label><input type="tel" id="main-phone" name="phone" class="w-full px-3 py-2 rounded-lg bg-gray-900 text-white"></div>
                               <div class="mb-6">
                                 <label for="main-interest" class="block text-gray-300 mb-2 text-sm">I'm interested in...</label>
-                              <select id="main-interest" name="interest" class="w-full px-3 py-2 rounded-lg bg-gray-900 text-white" required>
+                               <select id="main-interest" name="message" class="w-full px-3 py-2 rounded-lg bg-gray-900 text-white" required>
                                     <option value="" disabled selected>Please select an option</option>
                                     <option value="Provide a catalog">Provide a catalog</option>
                                     <option value="Provide an investment plan">Provide an investment plan</option>
@@ -302,69 +589,355 @@
             </div>
         </div>
     </section>
- <!-- Our Group Section -->
-<section id="our-group" class="py-20" style="background: linear-gradient(100deg, #6c5b31 0%, #c4a65a 20%, #e6d396 50%, #c4a65a 80%, #c4a651 100%);">
-    <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl text-white mb-4">OUR GROUP</h2><div class="w-24 h-1 bg-yellow-600 mx-auto"></div></div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-16 gap-x-8 items-center text-center text-black" style="font-family: 'Montserrat', sans-serif; font-weight: 200; text-transform: uppercase;">
-            
-            <a href="global-one-mining.html" target="_blank" class="block transition-transform duration-300 hover:scale-105">
-                <div>
-                    <h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3>
-                    <p class="text-xs md:text-sm tracking-wider mt-2">MINES & MINERALS CORP</p>
-                </div>
-            </a>           
-            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">CONSULTING</p></div>
-            
-            <a href="global-one-industries.html" target="_blank" class="block transition-transform duration-300 hover:scale-105">
-                <div>
-                    <h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3>
-                    <p class="text-xs md:text-sm tracking-wider mt-2">INDUSTRIES</p>
-                </div>
-            </a>
-            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">RETAILS</p></div>
-            <div class="flex justify-center"><img src="images/10.png" alt="Global One Group Logo" class="w-32 h-32 md:w-40 md:h-40" loading="lazy"></div>
-            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">AIR WAYS</p></div>
-            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">TECHSOLUTIONS</p></div>
-            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">ASSETS MANAGEMENT</p></div>
-            <div><h3 class="text-xl md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">HOLDINGS</p></div>
+
+    <!-- Our Group Section -->
+    <section id="our-group" class="py-20" style="background: linear-gradient(100deg, #6c5b31 0%, #c4a65a 20%, #e6d396 50%, #c4a65a 80%, #6c5b31 100%);">
+        <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12"><h2 class="text-3xl md:text-4xl text-white mb-4">OUR GROUP</h2><div class="w-24 h-1 bg-yellow-600 mx-auto"></div></div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-y-16 gap-x-8 items-center text-center text-black" style="font-family: 'Montserrat', sans-serif; font-weight: 200; text-transform: uppercase;">
+                <div><h3 class="text-lg md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">MINES & MINERALS CORP</p></div>
+                <div><h3 class="text-lg md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">CONSULTING</p></div>
+                <div><h3 class="text-lg md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">INDUSTRIES</p></div>
+                <div><h3 class="text-lg md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">RETAILS</p></div>
+                <div class="flex justify-center"><img src="images/10.png" alt="Global One Group Logo" class="w-32 h-32 md:w-40 md:h-40" loading="lazy"></div>
+                <div><h3 class="text-lg md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">AIR WAYS</p></div>
+                <div><h3 class="text-lg md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">TECHSOLUTIONS</p></div>
+                <div><h3 class="text-lg md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">ASSETS MANAGEMENT</p></div>
+                <div><h3 class="text-lg md:text-2xl tracking-widest">GLOBAL ONE</h3><p class="text-xs md:text-sm tracking-wider mt-2">HOLDINGS</p></div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-12">
         <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
                 <div><h3 class="text-xl text-white mb-4"><span class="text-[#9c7c38]">Global</span>One Consulting</h3><p class="text-sm text-gray-500">Your trusted partner in luxury real estate investments.</p></div>
                 <div><h3 class="text-xl text-white mb-4">Quick Links</h3><ul class="space-y-2"><li><a href="#about" class="hover:text-[#9c7c38]">About Us</a></li><li><a href="#amenities" class="hover:text-[#9c7c38]">Amenities</a></li><li><a href="#contact" class="hover:text-[#9c7c38]">Contact</a></li></ul></div>
-                <div><h3 class="text-xl text-white mb-4">Follow Us</h3><div class="flex space-x-4"><a href="#" class="hover:text-[#9c7c38]">Facebook</a><a href="#" class="hover:text-[#9c7c38]">Twitter</a><a href="#" class="hover:text-[#9c7c38]">Instagram</a></div></div>
+                <div><h3 class="text-xl text-white mb-4">Follow Us</h3><div class="flex space-x-4 justify-center md:justify-start"><a href="#" class="hover:text-[#9c7c38]">Facebook</a><a href="#" class="hover:text-[#9c7c38]">Twitter</a><a href="#" class="hover:text-[#9c7c38]">Instagram</a></div></div>
             </div>
             <div class="border-t border-gray-700 pt-8 text-center text-sm text-gray-500"><p>© <span id="currentYear"></span> Global One Consulting. All Rights Reserved.</p></div>
         </div>
     </footer>
+
+    <!-- Chatbot Components (hidden on mobile via CSS) -->
+    <div id="chatbot-toggle-button">A</div>
+    <div id="chatbot-container">
+        <div id="chatbot-header">
+            <h3>Ananta Assistant</h3>
+            <button id="chatbot-close-btn">×</button>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input-container">
+            <form id="chatbot-form">
+                <input type="text" id="chatbot-input" placeholder="Ask about the project..." autocomplete="off">
+                <button type="submit" id="chatbot-send-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Scroll to Top Button -->
     <div class="scroll-to-top"> ↑ </div>
 
-    <!-- Your Custom JavaScript -->
-    <script src="js/script.js" defer></script>
-    <script src="js/chatbot.js" defer></script>
-    <!-- =========== SCRIPT FOR AUTOMATIC SPLASH SCREEN REMOVAL =========== -->
+    <!-- Swiper.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+     <!-- Your Custom JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const splashScreen = document.getElementById('splash-screen');
-            const transitionDuration = 800; // This should match the CSS transition duration in ms
-            // Set a timer to hide the splash screen after 6 seconds
+            // --- Splash Screen ---
             setTimeout(() => {
-                // Add the class to trigger the fade-out animation
-                splashScreen.classList.add('splash-hiding');                
-                // Remove the no-scroll class from the body to enable scrolling
-                document.body.classList.remove('no-scroll');
-                // After the fade-out transition finishes, set display to none
-                setTimeout(() => {
-                    splashScreen.style.display = 'none';
-                }, transitionDuration); // Wait for the fade out to complete
-            }, 6000); // 6000 milliseconds = 6 seconds
+                const splashScreen = document.getElementById('splash-screen');
+                if (splashScreen) {
+                    splashScreen.classList.add('hidden');
+                }
+                document.body.classList.remove('splash-active');
+            }, 4000);
+            
+            // --- Contact Form Submission Logic ---
+            const mainContactForm = document.getElementById('main-contact-form');
+            if (mainContactForm) {
+                const formStatusMessage = document.getElementById('form-status-message');
+                const submitButton = mainContactForm.querySelector('button[type="submit"]');
+
+                mainContactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    const originalButtonText = submitButton.textContent;
+                    submitButton.textContent = 'Sending...';
+                    submitButton.disabled = true;
+                    formStatusMessage.textContent = '';
+                    formStatusMessage.className = 'mt-4 text-center';
+
+                    const formData = new FormData(mainContactForm);
+                    const data = Object.fromEntries(formData.entries());
+
+                    try {
+                        const response = await fetch('/api/contact', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', },
+                            body: JSON.stringify(data),
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            formStatusMessage.textContent = result.message || 'Message sent successfully!';
+                            formStatusMessage.classList.add('text-green-400');
+                            mainContactForm.reset();
+                            submitButton.textContent = 'Sent!';
+                        } else {
+                            throw new Error(result.message || 'An unknown server error occurred.');
+                        }
+                    } catch (error) {
+                        console.error('Form submission error:', error);
+                        formStatusMessage.textContent = error.message || 'Could not connect. Please try again.';
+                        formStatusMessage.classList.add('text-red-400');
+                        submitButton.textContent = originalButtonText;
+                        submitButton.disabled = false;
+                    }
+                });
+            }
+
+            // --- ALL OTHER FRONTEND JAVASCRIPT ---
+            const paragraphContainer = document.getElementById('hero-paragraph-container');
+            if (paragraphContainer) {
+                const originalP = paragraphContainer.querySelector('p');
+                if (originalP) {
+                    const fullText = originalP.textContent;
+                    const sentences = fullText.match(/[^.!?]+[.!?]+/g) || [fullText];
+                    originalP.innerHTML = '';
+                    sentences.forEach((sentence, index) => {
+                        const span = document.createElement('span');
+                        span.className = 'hero-sentence';
+                        span.textContent = sentence.trim();
+                        originalP.appendChild(span);
+                        setTimeout(() => {
+                            span.classList.add('visible');
+                        }, (index * 1200) + 1000);
+                    });
+                }
+            }
+
+            const scrollToTopButton = document.querySelector('.scroll-to-top');
+            if (scrollToTopButton) {
+                window.addEventListener('scroll', () => {
+                    scrollToTopButton.classList.toggle('visible', window.pageYOffset > 300);
+                });
+                scrollToTopButton.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            function animateCounter(element, target, duration = 2000) {
+                let start = 0;
+                const increment = target / (duration / 16);
+                const timer = setInterval(() => {
+                    start += increment;
+                    element.textContent = Math.ceil(start).toLocaleString('en-IN');
+                    if (start >= target) {
+                        element.textContent = target.toLocaleString('en-IN');
+                        clearInterval(timer);
+                    }
+                }, 16);
+                if (target === 0) element.textContent = '0';
+            }
+            const counters = document.querySelectorAll('.counter-value');
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.dataset.target, 10);
+                        animateCounter(entry.target, target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            counters.forEach(counter => counterObserver.observe(counter));
+
+            const aboutSection = document.getElementById('about');
+            const aboutContent = document.getElementById('about-content');
+            if (aboutSection && aboutContent) {
+                const aboutObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            aboutContent.classList.add('visible');
+                            aboutSection.classList.add('visible');
+                            const listItems = aboutSection.querySelectorAll('.list-item');
+                            listItems.forEach((item, index) => {
+                                item.style.transitionDelay = `${index * 100}ms`;
+                            });
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                aboutObserver.observe(aboutSection);
+            }
+
+            const infoCards = document.querySelectorAll('.info-card');
+            infoCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const { width, height } = rect;
+                    const rotateX = (y / height - 0.5) * -15;
+                    const rotateY = (x / width - 0.5) * 15;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href.length > 1) {
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            e.preventDefault();
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            const currentYearSpan = document.getElementById('currentYear');
+            if(currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+            
+            // --- Swiper for Amenities Initialization ---
+            var amenitiesSwiper = new Swiper(".amenitiesSwiper", {
+                effect: "cube",
+                grabCursor: true,
+                cubeEffect: {
+                    shadow: true,
+                    slideShadows: true,
+                    shadowOffset: 20,
+                    shadowScale: 0.94,
+                },
+                pagination: {
+                    el: "#amenities .swiper-pagination",
+                },
+                loop: true,
+                autoplay: {
+                    delay: 3500,
+                    disableOnInteraction: false,
+                },
+            });
+
+            // --- Swiper for Testimonials Initialization ---
+            var testimonialsSwiper = new Swiper(".testimonialsSwiper", {
+                effect: "cube",
+                grabCursor: true,
+                cubeEffect: {
+                    shadow: true,
+                    slideShadows: true,
+                    shadowOffset: 20,
+                    shadowScale: 0.94,
+                },
+                pagination: {
+                    el: "#testimonials .swiper-pagination",
+                    clickable: true,
+                },
+                loop: true,
+                autoplay: {
+                    delay: 5000, // Longer delay for reading text
+                    disableOnInteraction: false,
+                },
+            });
+
+            function initializeChatbot() {
+                const toggleButton = document.getElementById('chatbot-toggle-button');
+                const chatContainer = document.getElementById('chatbot-container');
+                const closeButton = document.getElementById('chatbot-close-btn');
+                const messageContainer = document.getElementById('chatbot-messages');
+                const chatForm = document.getElementById('chatbot-form');
+                const inputField = document.getElementById('chatbot-input');
+                const knowledgeBase = {
+                    "cost|price|investment|how much": "The launch price for a unit in Project Ananta starts at ₹32,50,000, with a 25% down payment of ₹8,12,500. For a full breakdown, please download the Investment Plan from our website.", "amenities|facilities|features": "Project Ananta offers exclusive amenities like a luxury swimming pool, a state-of-the-art gym, fine dining, a wellness spa, a private cinema, and a rooftop lounge. You can see them in our Amenities gallery.", "benefits|returns|guarantee|buyback|rental": "Investors enjoy a guaranteed monthly rental of ₹25,000. Key benefits include lifetime free maintenance, a buyback guarantee with assured appreciation, and 15 days of complimentary stay annually.", "location|where|address": "Project Ananta is strategically located in Datia, Madhya Pradesh, near the main highway and the Datia Railway Station. For a detailed map, please see the Location section on our website.", "contact|phone|email|touch": "You can reach our sales team via phone at <a href='tel:+911234567890'>+91 123 456 7890</a> or by email at <a href='mailto:invest@globaloneconsulting.com'>invest@globaloneconsulting.com</a>. You can also use the contact form on our website.", "possession|when|ready|completion": "Possession for the first phase of units is planned within 24 months from the launch.", "highlights|units|towers|size": "Project Ananta consists of 5 luxury towers with 460 units each. We offer two configurations: 50 sqm and 135 sqm apartments.", "hello|hi|hey": "Hello! I am the Ananta Assistant. How can I help you with Project Ananta today?", "thanks|thank you": "You're welcome! Feel free to ask if anything else comes to mind.", "bye|goodbye": "Goodbye! We look forward to hearing from you soon. Have a great day!"
+                };
+                const defaultResponse = "I'm sorry, I can only answer questions about Project Ananta. Please try asking about the price, location, or amenities. For other inquiries, please use the contact form.";
+
+                const toggleChat = (forceOpen = false, forceClose = false) => {
+                    const isVisible = chatContainer.classList.contains('visible');
+                    if (forceClose || (isVisible && !forceOpen)) {
+                        chatContainer.classList.remove('visible');
+                    } else {
+                        chatContainer.classList.add('visible');
+                        inputField.focus();
+                        if(messageContainer.children.length === 0) {
+                            setTimeout(() => displayMessage(knowledgeBase["hello|hi|hey"], 'bot'), 500);
+                        }
+                    }
+                };
+                
+                const displayMessage = (message, sender) => {
+                    const typingIndicator = messageContainer.querySelector('.typing-indicator');
+                    if (typingIndicator) typingIndicator.remove();
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `chat-message ${sender}`;
+                    messageDiv.innerHTML = message;
+                    messageContainer.appendChild(messageDiv);
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                };
+
+                const showTypingIndicator = () => {
+                    const typingDiv = document.createElement('div');
+                    typingDiv.className = 'chat-message bot typing-indicator';
+                    typingDiv.innerHTML = '<span></span><span></span><span></span>';
+                    messageContainer.appendChild(typingDiv);
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                };
+
+                const getBotResponse = (userInput) => {
+                    const lowerInput = userInput.toLowerCase();
+                    let response = defaultResponse;
+                    for (const keywords in knowledgeBase) {
+                        const keywordArray = keywords.split('|');
+                        if (keywordArray.some(keyword => lowerInput.includes(keyword))) {
+                            response = knowledgeBase[keywords];
+                            break;
+                        }
+                    }
+                    setTimeout(() => {
+                        showTypingIndicator();
+                        setTimeout(() => displayMessage(response, 'bot'), 1200);
+                    }, 500);
+                };
+
+                const handleFormSubmit = (e) => {
+                    e.preventDefault();
+                    const userInput = inputField.value.trim();
+                    if (userInput) {
+                        displayMessage(userInput, 'user');
+                        inputField.value = '';
+                        getBotResponse(userInput);
+                    }
+                };
+
+                toggleButton.addEventListener('click', () => toggleChat());
+                closeButton.addEventListener('click', () => toggleChat(false, true));
+                chatForm.addEventListener('submit', handleFormSubmit);
+
+                const autoOpenChat = () => {
+                    const hasAutoOpened = sessionStorage.getItem('anantaChatAutoOpened');
+                    if (!hasAutoOpened) {
+                        setTimeout(() => {
+                            toggleChat(true);
+                            sessionStorage.setItem('anantaChatAutoOpened', 'true');
+                        }, 5000); 
+                    }
+                };
+
+                autoOpenChat();
+            }
+
+            initializeChatbot();
         });
-    </script>     
+    </script>
 </body>
 </html>
